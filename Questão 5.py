@@ -1,0 +1,60 @@
+#Escreva um programa que use uma pilha para verificar se uma string é um palíndromo 
+#(ou seja, se é igual quando lida de trás para frente).
+
+class No:
+    def __init__(self, valor):
+        self.valor = valor
+        self.proximo = None
+
+class Pilha:
+    def __init__(self):
+        self._topo = None
+        self.tamanho = 0
+   
+    def __len__(self):
+        return self.tamanho
+   
+    def is_empty(self):
+        return self.tamanho == 0
+   
+    def inserir(self, valor):
+        no = No(valor)
+        no.proximo = self._topo
+        self._topo = no
+        self.tamanho += 1
+   
+    def remover(self):
+        if self.is_empty():
+            raise IndexError("A pilha está vazia")
+        valor = self._topo.valor
+        self._topo = self._topo.proximo
+        self.tamanho -= 1
+        return valor
+   
+    def topo(self):
+        if self.is_empty():
+            raise IndexError("A pilha está vazia")
+        return self._topo.valor
+    
+def palindromo(string):
+    pilha = Pilha()
+    tamanho = len(string)
+    
+    if tamanho == 0:
+        return False
+    for i in range(0, tamanho // 2):
+        if string[i] != string[tamanho - i - 1]: 
+            return False
+    return pilha.is_empty
+
+string = input('Digite algum número: ')
+
+if palindromo(string):
+    print('É um palíndromo')
+else:
+    print('Não é um palíndromo')
+         
+    
+   
+    
+    
